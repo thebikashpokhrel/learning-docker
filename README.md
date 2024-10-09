@@ -17,7 +17,7 @@ CMD ["npm","run","start:dev"]
 ### Docker Commands
 
 ```bash
-#Buildinhg Docker Images
+#Building Docker Images
 docker build <src> -t <imagename:tagname>
 
 #Listing Docker Images
@@ -37,4 +37,50 @@ docker container ls  #can use -a optionally to list all containers which has run
 #To run image in interactive mode to access terminal(for now linux bash)
 docker run -it <imagename:tag> ../bin/sh #-e to set env variables
 
+docker run --env-file=.env <imagename:tag> #Giving env file while running docker image
+
+#list ids of all images
+docker image ls -q
+
+#remove all images
+docker rmi $(docker image ls -q)
+
+#To remove container
+docker rmi <containerId>
+
+#To remove all containers
+docker rm $(docker container ls -q -a)
+```
+
+### Container Lifecycle
+
+- Created
+- Running
+- Paused
+- Stopped
+- Deleted
+
+### RUN vs CMD
+
+**RUN** : Executed when image is created  
+**CMD** : Executed when container is created
+
+We can use _.dockerignore_ file to exclude files to copy while creating the image.
+
+### Port Mapping
+
+```bash
+docker run -p <port_in_host_computer>:<port_in_docker_container> <imagename:tag>
+
+#Example
+docker run -p 3000:4000 myexpressapp
+
+#This maps port 4000 from docker container to port 3000 inside host computer
+```
+
+### Running in deatch mode
+
+```bash
+#Example : This doesnot block the terminal
+docker run -p 3000:4000 myexpressapp
 ```

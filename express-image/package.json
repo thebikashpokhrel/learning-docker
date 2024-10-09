@@ -1,0 +1,12 @@
+{
+  "name": "express-image",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
