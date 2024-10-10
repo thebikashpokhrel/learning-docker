@@ -1,3 +1,5 @@
+## Docker Fundamentals
+
 ### Creating a Docker Image
 
 ```dockerfile
@@ -20,6 +22,8 @@ CMD ["npm","run","start:dev"]
 #Building Docker Images
 docker build <src> -t <imagename:tagname>
 
+#Ignore cache while building use --no-cache flag
+
 #Listing Docker Images
 docker images
 docker image ls
@@ -31,11 +35,19 @@ docker image rm <imageids>
 #Running docker image
 docker run <imagename:tag>
 
+#Running by giving a name to container
+docker run --name <container_name> <imagename:tag>
+
 #List docker containers
 docker container ls  #can use -a optionally to list all containers which has run and exited before
 
 #To run image in interactive mode to access terminal(for now linux bash)
-docker run -it <imagename:tag> ../bin/sh #-e to set env variables
+docker run -it <imagename:tag> ../bin/sh
+
+#-e variable=value to set env variables
+
+#To run interactive mode while container is running
+docker exec -it <imagename:tag>
 
 docker run --env-file=.env <imagename:tag> #Giving env file while running docker image
 
@@ -50,6 +62,12 @@ docker rmi <containerId>
 
 #To remove all containers
 docker rm $(docker container ls -q -a)
+
+#Multiline commands for readibility
+docker run -p 3000:4000 \
+--name my_container \
+-e --env-file=.env \
+myexpressapp
 ```
 
 ### Container Lifecycle
@@ -83,4 +101,23 @@ docker run -p 3000:4000 myexpressapp
 ```bash
 #Example : This doesnot block the terminal
 docker run -p 3000:4000 myexpressapp
+```
+
+## DockerHub
+
+### Pushing image to dockerhub
+
+While building docker image, the name should be of the format **_username/imagename_**
+
+```bash
+#Example
+docker build . -t thebikash/myexpressapp
+
+docker push thebikash/myexpressapp
+```
+
+### Pulling image from dockerhub
+
+```bash
+docker pull thebikash/myexpressapp
 ```
