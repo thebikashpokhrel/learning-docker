@@ -121,3 +121,38 @@ docker push thebikash/myexpressapp
 ```bash
 docker pull thebikash/myexpressapp
 ```
+
+### Docker Compose
+
+To run multi container applications.
+We use yaml file(docker-compose.yml) to write docker compose file.
+
+Example File: docker-compose.yml
+
+```yaml
+name: "main_container_of_compose"
+services:
+  web:
+    image: "myexpressimage"
+    container_name: "mynodecontainer"
+    build:
+      dockerfile: ./dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+
+  db:
+    container_name: "mydbcontainer"
+    image: postgres
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypass
+```
+
+To build from docker compose file
+
+```bash
+docker-compose up
+```
